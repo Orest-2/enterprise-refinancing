@@ -71,6 +71,8 @@ func (s *APIServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 	path = filepath.Join(s.config.StaticPath, path)
 
+	s.logger.Infof("path %v", path)
+
 	_, err = os.Stat(s.config.StaticPath)
 	if os.IsNotExist(err) {
 		http.ServeFile(w, r, filepath.Join(s.config.StaticPath, s.config.IndexPath))

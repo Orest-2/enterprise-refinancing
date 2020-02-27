@@ -2,6 +2,7 @@ package apiserver
 
 import (
 	"encoding/json"
+	"fmt"
 	"log"
 	"math"
 	"net/http"
@@ -36,7 +37,7 @@ func (s *APIServer) Start() error {
 	if port == "" {
 		log.Fatal("$PORT must be set")
 	} else {
-		s.config.BindAdd = port
+		s.config.BindAdd = fmt.Sprintf(":%s", port)
 	}
 
 	if err := s.configureLogger(); err != nil {

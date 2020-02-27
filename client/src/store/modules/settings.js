@@ -1,6 +1,6 @@
 // initial state
 const initState = {
-  criterions: JSON.parse(localStorage.getItem('settingsCriterions')),
+  criterions: JSON.parse(localStorage.getItem('settingsCriterions')) || [],
 };
 
 const mutations = {

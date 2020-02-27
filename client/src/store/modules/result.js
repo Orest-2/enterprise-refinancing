@@ -19,7 +19,7 @@ const getters = {};
 
 const actions = {
   fetchCalc({ commit }, data) {
-    axios.post('http://localhost:8081/calc', data).then((res) => {
+    axios.post('/api/calc', data).then((res) => {
       commit('setData', res.data);
       commit('setHasResult', true);
     });

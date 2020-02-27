@@ -2,8 +2,11 @@ package apiserver
 
 import (
 	"encoding/json"
+	"log"
 	"math"
 	"net/http"
+	"os"
+	"path/filepath"
 
 	"github.com/gorilla/mux"
 	"github.com/sirupsen/logrus"
@@ -28,6 +31,14 @@ func New(config *Config) *APIServer {
 
 // Start ...
 func (s *APIServer) Start() error {
+	port := os.Getenv("PORT")
+
+	if port == "" {
+		log.Fatal("$PORT must be set")
+	} else {
+		s.config.BindAdd = port
+	}
+
 	if err := s.configureLogger(); err != nil {
 		return err
 	}
@@ -50,6 +61,27 @@ func (s *APIServer) configureLogger() error {
 	return nil
 }
 
+func (s *APIServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	path, err := filepath.Abs(r.URL.Path)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	path = filepath.Join(s.config.StaticPath, path)
+
+	_, err = os.Stat(s.config.StaticPath)
+	if os.IsNotExist(err) {
+		http.ServeFile(w, r, filepath.Join(s.config.StaticPath, s.config.IndexPath))
+		return
+	} else if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	http.FileServer(http.Dir(s.config.StaticPath)).ServeHTTP(w, r)
+}
+
 // CORS Middleware
 func CORS(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -70,7 +102,9 @@ func CORS(next http.Handler) http.Handler {
 
 func (s *APIServer) configureRouter() {
 	s.router.Use(CORS)
-	s.router.HandleFunc("/calc", s.handleCalc()).Methods(http.MethodPost, http.MethodOptions)
+	s.router.HandleFunc("/api/calc", s.handleCalc()).Methods(http.MethodPost, http.MethodOptions)
+
+	s.router.PathPrefix("/").Handler(s)
 }
 
 // Model ...

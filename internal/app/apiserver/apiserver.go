@@ -7,7 +7,6 @@ import (
 	"math"
 	"net/http"
 	"os"
-	"path/filepath"
 
 	"github.com/gorilla/mux"
 	"github.com/sirupsen/logrus"
@@ -63,25 +62,6 @@ func (s *APIServer) configureLogger() error {
 }
 
 func (s *APIServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	path, err := filepath.Abs(r.URL.Path)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
-		return
-	}
-
-	path = filepath.Join(s.config.StaticPath, path)
-
-	s.logger.Infof("path %v", path)
-
-	_, err = os.Stat(s.config.StaticPath)
-	if os.IsNotExist(err) {
-		http.ServeFile(w, r, filepath.Join(s.config.StaticPath, s.config.IndexPath))
-		return
-	} else if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-
 	http.FileServer(http.Dir(s.config.StaticPath)).ServeHTTP(w, r)
 }
 

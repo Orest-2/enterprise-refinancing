@@ -86,8 +86,7 @@ func CORS(next http.Handler) http.Handler {
 func (s *APIServer) configureRouter() {
 	s.router.Use(CORS)
 
-	api := s.router.PathPrefix("/api/").Subrouter()
-	api.HandleFunc("calc", s.handleCalc()).Methods(http.MethodPost, http.MethodOptions)
+	s.router.HandleFunc("api/calc", s.handleCalc()).Methods(http.MethodPost, http.MethodOptions)
 
 	s.router.PathPrefix("/").Handler(s)
 }

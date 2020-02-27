@@ -13,7 +13,7 @@ func NewConfig() *Config {
 	return &Config{
 		BindAdd:    ":8080",
 		LogLevel:   "debug",
-		StaticPath: "",
+		StaticPath: "client/dist",
 		IndexPath:  "index.html",
 	}
 }

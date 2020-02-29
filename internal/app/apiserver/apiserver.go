@@ -3,12 +3,12 @@ package apiserver
 import (
 	"encoding/json"
 	"fmt"
-	"log"
 	"math"
 	"net/http"
 	"os"
 
 	"github.com/gorilla/mux"
+	spa "github.com/roberthodgen/spa-server"
 	"github.com/sirupsen/logrus"
 	"gonum.org/v1/gonum/mat"
 )
@@ -33,9 +33,7 @@ func New(config *Config) *APIServer {
 func (s *APIServer) Start() error {
 	port := os.Getenv("PORT")
 
-	if port == "" {
-		log.Fatal("$PORT must be set")
-	} else {
+	if port != "" {
 		s.config.BindAdd = fmt.Sprintf(":%s", port)
 	}
 
@@ -61,10 +59,6 @@ func (s *APIServer) configureLogger() error {
 	return nil
 }
 
-func (s *APIServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	http.FileServer(http.Dir(s.config.StaticPath)).ServeHTTP(w, r)
-}
-
 // CORS Middleware
 func CORS(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -88,7 +82,9 @@ func (s *APIServer) configureRouter() {
 
 	s.router.HandleFunc("/api/calc", s.handleCalc()).Methods(http.MethodPost, http.MethodOptions)
 
-	s.router.PathPrefix("/").Handler(s)
+	spah := spa.SpaHandler(s.config.StaticPath, s.config.IndexPath)
+
+	s.router.PathPrefix("/").Handler(spah)
 }
 
 // Model ...

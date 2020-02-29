@@ -1,5 +1,5 @@
 <template>
-  <div class="home mb-5">
+  <div v-if="!hasresult" class="home mb-5">
     <h1>Home</h1>
 
     <label>Період:</label>
@@ -68,6 +68,7 @@
                       models[n - 1]['form'][cols * index + item[field.key]]
                     "
                     type="number"
+                    step=".1"
                   >
                   </b-form-input>
                 </template>
@@ -87,32 +88,23 @@
       <b-button block variant="primary" @click="tabeleCnt += 1">
         + Add
       </b-button>
-      <b-button block variant="success" @click="calculate">
+      <b-button block variant="success" :disabled="loading" @click="calculate">
         Calculate
       </b-button>
     </div>
-
-    <result />
   </div>
+  <result v-else />
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex';
+import { chuncs, dc } from '../helpers/helpers';
 
 import Result from '../components/Result.vue';
-
-const dc = (d) => JSON.parse(JSON.stringify(d));
 
 const range = (start, stop, step = 1) => Array(Math.ceil((stop - start + 1) / step))
   .fill(start)
   .map((x, y) => `${x + y * step}`);
-
-const chuncs = (arr, size) => {
-  const carr = dc(arr);
-  const newArr = [];
-  while (carr.length) newArr.push(carr.splice(0, size));
-  return newArr;
-};
 
 export default {
   name: 'Home',
@@ -135,6 +127,8 @@ export default {
   computed: {
     ...mapState({
       settingsData: (state) => state.settings.criterions,
+      hasresult: (state) => state.result.hasresult,
+      loading: (state) => state.result.loading,
     }),
 
     rows() { return this.settingsData.length; },
@@ -197,30 +191,7 @@ export default {
     addModel() {
       const { cols, rows } = this;
 
-      let f = Array(cols * rows).fill(0);
-
-      if (this.models.length === 0) {
-        f = [
-          0.4, 1.1, 0.6, 0.7,
-          0.8, 1, 1.2, 1.3,
-          0.9, 2.9, 4.1, 1.8,
-          0.06, 0.09, 0.12, 0.07,
-        ];
-      } else if (this.models.length === 1) {
-        f = [
-          0.3, 1.2, 1.3, 0.9,
-          0.8, 0.9, 1.2, 1,
-          0.5, 0.9, 2.1, 1.1,
-          0.06, 0.07, 0.06, 0.05,
-        ];
-      } else if (this.models.length === 2) {
-        f = [
-          0.5, 0.1, 0.6, 0.7,
-          1.4, 1, 1.6, 1.3,
-          1.9, 3, 3.2, 1.9,
-          0.1, 0.04, 0.05, 0.06,
-        ];
-      }
+      const f = Array(cols * rows).fill(0);
 
       this.models.push(dc({ form: dc(f) }));
     },

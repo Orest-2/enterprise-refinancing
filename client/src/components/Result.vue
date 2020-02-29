@@ -1,5 +1,5 @@
 <template>
-  <div class="text-center" v-if="show">
+  <div class="text-center">
     <h3>Result</h3>
     <div>
       <b-table class="m-auto w-50" :items="items">
@@ -39,25 +39,20 @@
     </div>
     <p class="h3 my-3">a = ({{ `${alfa.map(el => el.toFixed(2))}` }})</p>
     <p class="h3">A = ({{ `${a.map(el => el.toFixed(2))}` }})</p>
+
+    <b-button block variant="primary" @click="reset" class="mt-4">
+      New calculation
+    </b-button>
   </div>
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex';
-
-const dc = (d) => JSON.parse(JSON.stringify(d));
-
-const chuncs = (arr, size) => {
-  const carr = dc(arr);
-  const newArr = [];
-  while (carr.length) newArr.push(carr.splice(0, size));
-  return newArr;
-};
+import { chuncs } from '../helpers/helpers';
 
 export default {
   computed: {
     ...mapState({
-      show: (state) => state.result.hasresult,
       resdata: (state) => state.result.data,
       settingsData: (state) => state.settings.criterions,
     }),

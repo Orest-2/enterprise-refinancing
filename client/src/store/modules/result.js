@@ -4,6 +4,7 @@ import axios from 'axios';
 const initState = {
   data: null,
   hasresult: false,
+  loading: false,
 };
 
 const mutations = {
@@ -13,16 +14,26 @@ const mutations = {
   setHasResult(state, data) {
     state.hasresult = data;
   },
+  setLoading(state, data) {
+    state.loading = data;
+  },
 };
 
 const getters = {};
 
 const actions = {
   fetchCalc({ commit }, data) {
-    axios.post('/api/calc', data).then((res) => {
-      commit('setData', res.data);
-      commit('setHasResult', true);
-    });
+    commit('setLoading', true);
+
+    axios.post('https://enterprise-refinancing.herokuapp.com/api/calc', data)
+      .then((res) => {
+        commit('setData', res.data);
+        commit('setHasResult', true);
+        commit('setLoading', false);
+      })
+      .catch(() => {
+        commit('setLoading', false);
+      });
   },
 
   reset({ commit }) {

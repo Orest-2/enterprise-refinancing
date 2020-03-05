@@ -1,6 +1,6 @@
 <template>
   <div v-if="!hasresult" class="home mb-5">
-    <h1>Home</h1>
+    <h1>Рефінансування підприємств</h1>
 
     <label>Період:</label>
     <b-row align-h="between" class="mb-2">
@@ -19,6 +19,8 @@
         </b-input-group>
       </b-col>
     </b-row>
+
+    <b-btn @click="useTestData">Приклад</b-btn>
 
     <div class="justify-content-center pb-5">
       <div v-for="n in tabeleCnt" :key="`model${n - 1}`" class="mb-4">
@@ -187,6 +189,22 @@ export default {
     ...mapActions({
       fetchCalc: 'result/fetchCalc',
     }),
+
+    useTestData() {
+      this.period = { from: 2010, to: 2013 };
+      this.tabeleCnt = 3;
+      this.models = [
+        {
+          form: [0.4, 1.1, 0.6, 0.7, 0.8, 1, 1.2, 1.3, 0.9, 2.9, 4.1, 1.8, 0.06, 0.09, 0.12, 0.07],
+        },
+        {
+          form: [0.3, 1.2, 1.3, 0.9, 0.8, 0.9, 1.2, 1, 0.5, 0.9, 2.1, 1.1, 0.06, 0.07, 0.06, 0.05],
+        },
+        {
+          form: [0.5, 0.1, 0.6, 0.7, 1.4, 1, 1.6, 1.3, 1.9, 3, 3.2, 1.9, 0.1, 0.04, 0.05, 0.06],
+        },
+      ];
+    },
 
     addModel() {
       const { cols, rows } = this;

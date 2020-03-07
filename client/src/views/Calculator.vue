@@ -213,7 +213,7 @@ export default {
       this.test = true;
       this.period = { from: 2010, to: 2013 };
       this.models = dc(exampleModels);
-      this.$store.commit('setData', exampleSettings);
+      this.$store.commit('settings/setData', exampleSettings);
     },
 
     removeModel(index) {

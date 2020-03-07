@@ -13,7 +13,7 @@ const routes = [
   {
     path: '/calculator',
     name: 'calculator',
-    component: () => import(/* webpackChunkName: "settings" */ '../views/Calculator.vue'),
+    component: () => import(/* webpackChunkName: "calculator" */ '../views/Calculator.vue'),
   },
   {
     path: '/settings',

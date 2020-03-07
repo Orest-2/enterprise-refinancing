@@ -9,6 +9,7 @@
         <b-navbar-nav class="ml-auto">
           <b-navbar-nav>
             <b-nav-item to="/">Home</b-nav-item>
+            <b-nav-item to="/calculator">Calculator</b-nav-item>
             <b-nav-item to="/settings">Settings</b-nav-item>
           </b-navbar-nav>
         </b-navbar-nav>

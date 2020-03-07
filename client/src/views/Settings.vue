@@ -2,7 +2,7 @@
   <div class="settings">
     <div class="d-flex justify-content-between">
       <div>
-        <h1>Settings</h1>
+        <h1>Критерії ефективності</h1>
       </div>
       <div align-v="center" class="align-items-center align-self-center">
         <b-button size="sm" variant="success" @click="openModal">

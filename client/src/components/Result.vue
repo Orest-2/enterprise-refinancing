@@ -40,9 +40,9 @@
     <p class="h3 my-3">a = ({{ `${alfa.map(el => el.toFixed(2))}` }})</p>
     <p class="h3">A = ({{ `${a.map(el => el.toFixed(2))}` }})</p>
 
-    <b-button block variant="primary" @click="reset" class="mt-4">
-      New calculation
-    </b-button>
+    <div class="w-50 m-auto">
+      <b-btn block variant="primary" @click="reset">Нове обчислення</b-btn>
+    </div>
   </div>
 </template>
 

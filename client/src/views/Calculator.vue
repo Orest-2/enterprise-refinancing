@@ -123,7 +123,7 @@ export default {
   data() {
     return {
       period: {
-        from: new Date().getFullYear() - 5,
+        from: new Date().getFullYear() - 3,
         to: new Date().getFullYear(),
       },
       test: false,

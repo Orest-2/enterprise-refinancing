@@ -11,8 +11,8 @@
         <b-navbar-nav class="ml-auto">
           <b-navbar-nav>
             <b-nav-item to="/">Головна</b-nav-item>
-            <b-nav-item to="/calculator">Калькулятор</b-nav-item>
-            <b-nav-item to="/settings">Насторйки</b-nav-item>
+            <b-nav-item to="/calculator">Обчислення</b-nav-item>
+            <b-nav-item to="/settings">Налаштування</b-nav-item>
           </b-navbar-nav>
         </b-navbar-nav>
       </b-collapse>

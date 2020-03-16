@@ -23,7 +23,7 @@
     </div>
 
     <div v-if="!models.length" class="text-center my-3">
-      <p>Please add new enterprise</p>
+      <p>Додати нове підприємство</p>
     </div>
 
     <div class="justify-content-center pb-5">

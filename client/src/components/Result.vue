@@ -38,7 +38,13 @@
       </div>
     </div>
     <p class="h3 my-3">a = ({{ `${alfa.map(el => el.toFixed(2))}` }})</p>
-    <p class="h3">A = ({{ `${a.map(el => el.toFixed(2))}` }})</p>
+    <p class="h3">A = ({{ `${a.map(el => el.data.toFixed(2))}` }})</p>
+
+    <div class="my-4">
+      <p class="h3" v-for="(a, i) in a" :key="i">
+        {{ `${a.name} - ${a.data.toFixed(2)}` }}
+      </p>
+    </div>
 
     <div class="w-50 m-auto">
       <b-btn class="mt-5" block variant="primary" @click="reset">

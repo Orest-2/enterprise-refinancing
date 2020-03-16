@@ -6,7 +6,7 @@
       </div>
       <div align-v="center" class="align-items-center align-self-center">
         <b-button size="sm" variant="success" @click="openModal">
-          Add new
+          Додати новий
         </b-button>
       </div>
     </div>
@@ -19,7 +19,7 @@
           variant="warning"
           @click="openModal('edit', index)"
         >
-          Edit
+          Редагувати
         </b-button>
         <b-button
           size="sm"
@@ -27,7 +27,7 @@
           variant="danger"
           @click="deleteSettings(index)"
         >
-          Delete
+          Видалити
         </b-button>
       </template>
     </b-table>

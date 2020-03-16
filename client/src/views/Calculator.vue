@@ -42,7 +42,7 @@
             </b-col>
             <b-col v-b-toggle="`accordion-${i}`"> </b-col>
             <b-button size="sm" variant="danger" @click="removeModel(i)">
-              Delete
+              Видалити
             </b-button>
           </b-card-header>
           <b-collapse :id="`accordion-${i}`" visible role="tabpanel">

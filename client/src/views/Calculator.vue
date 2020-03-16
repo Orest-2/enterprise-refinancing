@@ -211,7 +211,6 @@ export default {
 
     useTestData() {
       this.test = true;
-      this.period = { from: 2010, to: 2013 };
       this.models = dc(exampleModels);
       this.$store.commit('settings/setData', exampleSettings);
     },

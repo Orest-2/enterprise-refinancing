@@ -1,6 +1,6 @@
 <template>
   <div class="text-center">
-    <h3>Result</h3>
+    <h3>Результат</h3>
     <div>
       <b-table class="m-auto w-50" :items="items">
         <template v-slot:cell(x)="{ index, item, value }">
@@ -41,7 +41,9 @@
     <p class="h3">A = ({{ `${a.map(el => el.toFixed(2))}` }})</p>
 
     <div class="w-50 m-auto">
-      <b-btn block variant="primary" @click="reset">Нове обчислення</b-btn>
+      <b-btn class="mt-5" block variant="primary" @click="reset">
+        Нове обчислення
+      </b-btn>
     </div>
   </div>
 </template>

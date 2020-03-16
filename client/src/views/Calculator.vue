@@ -37,7 +37,7 @@
             <b-col cols="3" class="p-0">
               <b-form-input
                 v-model="m['name']"
-                placeholder="Please enter enterprise name"
+                placeholder="Ведіть назву підприємства"
               ></b-form-input>
             </b-col>
             <b-col v-b-toggle="`accordion-${i}`"> </b-col>
@@ -84,11 +84,11 @@
         <b-input-group class="my-3">
           <b-form-input
             v-model="name"
-            placeholder="Please enter enterprise name"
+            placeholder="Ведіть назву підприємства"
           ></b-form-input>
           <b-input-group-append>
             <b-button variant="primary" @click="addModel">
-              Add new enterprise
+              Додати підприємство
             </b-button>
           </b-input-group-append>
         </b-input-group>
@@ -98,7 +98,7 @@
           :disabled="loading || models.length === 0"
           @click="calculate"
         >
-          Calculate
+          Обчислити
         </b-button>
       </div>
     </div>

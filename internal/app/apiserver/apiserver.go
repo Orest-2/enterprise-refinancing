@@ -89,7 +89,14 @@ func (s *APIServer) configureRouter() {
 
 // Model ...
 type Model struct {
+	Name string      `json:"name"`
 	Data [][]float64 `json:"data"`
+}
+
+// AData ...
+type AData struct {
+	Name string `json:"name"`
+	Data float64 `json:"data"` 
 }
 
 // Criterion ...
@@ -177,7 +184,7 @@ func (s *APIServer) handleCalc() http.HandlerFunc {
 		var (
 			psum     float64
 			alfadata []float64
-			adata    []float64
+			adata    []AData
 		)
 
 		for i, c := range data.Criterions {
@@ -205,7 +212,10 @@ func (s *APIServer) handleCalc() http.HandlerFunc {
 				col := mat.Col(nil, i, zdata)
 				s += alf * col[j]
 			}
-			adata = append(adata, s)
+			adata = append(adata, AData{
+				Name: data.Models[i].Name,
+				Data: s,
+			})
 		}
 
 		res := map[string]interface{}{

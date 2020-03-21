@@ -161,7 +161,11 @@ export default {
   },
 
   watch: {
-    hasresult(nv, ov) {
+    $route(to) {
+      this.test = Boolean(to.query.test);
+    },
+
+    test(nv, ov) {
       if (!nv && ov) {
         this.models = [];
         this.tableNum = 1;

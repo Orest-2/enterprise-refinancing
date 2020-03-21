@@ -14,3 +14,6 @@ const rangeArr = (start, stop, step = 1) => Array(Math.ceil((stop - start + 1) /
 export {
   dc, chuncs, rangeArr,
 };
+
+export const csvContent = (rows) => `data:text/csv;charset=utf-8,\uFEFF${
+  rows.map((e) => e.join(',')).join('\n')}`;

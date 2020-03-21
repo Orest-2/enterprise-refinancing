@@ -47,8 +47,11 @@
     </div>
 
     <div class="w-50 m-auto">
-      <b-btn class="mt-5" block variant="primary" @click="reset">
+      <b-btn class="mt-5" block variant="primary" @click="preReset">
         Нове обчислення
+      </b-btn>
+      <b-btn class="mt-2 mb-4" block variant="success" @click="save">
+        Зберегти результат в файл
       </b-btn>
     </div>
   </div>
@@ -56,7 +59,7 @@
 
 <script>
 import { mapState, mapActions } from 'vuex';
-import { chuncs } from '../helpers/helpers';
+import { chuncs, csvContent } from '../helpers/helpers';
 
 export default {
   computed: {
@@ -91,7 +94,8 @@ export default {
       return this.resdata.alfadata;
     },
     a() {
-      return this.resdata.adata;
+      const { adata } = this.resdata;
+      return adata.sort((f, s) => (s.data - f.data));
     },
   },
 
@@ -99,6 +103,27 @@ export default {
     ...mapActions({
       reset: 'result/reset',
     }),
+
+    preReset() {
+      this.$router.push({ path: '/calculator' });
+      this.reset();
+    },
+
+    save() {
+      const name = `enterprise-refinsnsing-${Date.now()}.csv`;
+      const rows = this.a.map((e) => Object.values(e));
+      const content = csvContent(rows);
+      // const encodedUri = encodeURIComponent(content);
+
+      const link = document.createElement('a');
+      link.setAttribute('href', content);
+      link.setAttribute('download', name);
+      document.body.appendChild(link);
+
+      link.click();
+
+      link.remove();
+    },
   },
 };
 </script>

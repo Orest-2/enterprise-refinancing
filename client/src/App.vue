@@ -9,7 +9,7 @@
     <footer class="footer">
       <div class="container text-center">
         <span class="text-muted">
-          Copyright © 2019 developed by Pidfihrnyi Orest
+          Copyright © 2019 developed by Pidfihurnyi Orest
         </span>
       </div>
     </footer>

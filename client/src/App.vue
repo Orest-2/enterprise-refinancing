@@ -6,13 +6,13 @@
     <b-container>
       <router-view />
     </b-container>
-    <footer class="footer">
+    <!-- <footer class="footer">
       <div class="container text-center">
         <span class="text-muted">
           Copyright © 2019 developed by Pidfihurnyi Orest
         </span>
       </div>
-    </footer>
+    </footer> -->
   </div>
 </template>
 
